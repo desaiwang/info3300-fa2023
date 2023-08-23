@@ -50,44 +50,65 @@
     <script id="notes1">
 
       // Try pasting these commands into your browser console
-      
-      // Console.log is our friend
-      console.log('Hello World');
-
       // Let's explore some Javascript types!
       console.log("--- Checking out some types ---")
+
+      console.log(typeof(1)); //number
+      console.log(typeof(1.2)); //number
+
+      //string
+      console.log(typeof("hello.")); 
+      console.log(typeof('hello.')); //single quotes also result in string
+      console.log(typeof(`hello.`));
+      console.log(typeof('japanese characters')) //also string, no sense of unicode
+
+      //object
+      console.log(typeof(Math)); //Math library looks like dict, every javascript object looks like and acts like a dict
+      console.log(typeof(new Object()));
       
       
-      
-      
-      
-      
-      // Learn a bit more about Objects
-      // console.log("--- Testing [] and {} ---")
+      //function (a pseudo type, they are actually special objects)
+      console.log(typeof(console.log));
+
+      //null and undefined
+      console.log(typeof(null)); //prints object, but this is not true. null is its own type
+      console.log(typeof(undefined)); //undefined
 
       
+      // Learn a bit more about Objects
+      let list = [1,2,3] //assume we always define things this way
+      console.log(list);
       
-      
+      let dict = {"a": 1, "b":2};
+
+      list["key"] = "this works"; //can make lists behave like dicts (every object can be made like dicts)
+      console.log(list.key);
 
       
       // So what can accept keys?
-      // console.log("--- So what works like a dict? ---");
-      // let differentTypes = [3, "hello", new Object(), [1,2,3], function(x) {}, console];
-      // for (let item of differentTypes) {
-      //   console.log( item, typeof(item) );
-      //   item['test'] = "keyAdded";
-      //   console.log( item['test'] ); 
-      // } 
+      console.log("--- So what works like a dict? ---");
+      let differentTypes = [3, "hello", new Object(), [1,2,3], function(x) {}, console];
+      for (let item of differentTypes) {
+        console.log( item, typeof(item) );
+        item['test'] = "keyAdded";
+        console.log( item['test'] ); 
+      } 
       
       
       // Types can get a bit unexpected in JS
-      // console.log("--- Now exploring type coercion ---")
-      
-      
+      console.log("--- Now exploring type coercion ---")
+      console.log(3 + "Wang"); //"3Wang"
+      console.log("1" + 2); //12
+      console.log(4 + true); //5
+      console.log("true" + false); //truefalse
+      console.log([1,2,3] + 2) // 1, 2, 32
       
       // Why does this matter?
+      let color = "red";
+      document.getElementById("rectangle").setAttribute("fill", color);
       
-      
+      color = 2;
+      document.getElementById("rectangle").setAttribute("fill", color); //forces it to be black
       
       
       // Comparison weirdness
