@@ -44,22 +44,27 @@
     <!--- Code for today's class --->
     <script id="notes1">
     
-    // * Let's talk JSON
+    // * Let's talk JSON (JavaScript Object Notation)
     // JSON is used as a way to convey complex data over the web (e.g. getting data from an API elsewhere)
     // Key benefit over something like serialization is that it is standardized and very human-readable
 
     let obj = [{"name":"DDWA", "number":3300 },{"name": "Java", "number": 2110},{"name": "Python", "number": 1110}];
-    
+    console.log(obj);
+    let jsonObj = JSON.stringify(obj);
+    console.log(jsonObj);
+    console.log(typeof(jsonObj));
+    console.log(JSON.parse(jsonObj));
     
 
     // This one won't parse because it breaks JSON specifications
     // let badStr = '{"list": ["commas,", "single_quo\'tes", "double_quo"tes", "@sÃ§i|"], "nestedObject": {"undefined": undefined, "defined": 3.1415926535}, "Infinity": Infinity, "NaN": NaN, "bool": true}'
-    
+    //TODO: why doesn't this parse?
     
     
     // Done incorrectly, the JSON parser can make you think you've fixed errors when you actually haven't
-    // var fib = '[1; 2; 3; 5; 7; 12]';
-    
+    //fib = '[1; 2; 3; 5; 7; 12]';
+    let fib = '"[1; 2; 3; 5; 7; 12]"';
+    console.log(JSON.parse(fib));
   
   
   
@@ -68,29 +73,79 @@
     //    We have three different declarations, var, const, and let
     //    Var came earlier, const & let more recently
     //    (only use VAR if you really mean it!)
+
+    let fruit = 'strawberry'; //block scoped
+    var veg = "celery"; // gloabally scoped
+    const legume = "lentil"; //block scoped, shouldn't change
+    console.log("gloabal varables")
+    console.log(fruit);
+    console.log(veg);
+    console.log(legume);
     
-    
+    if (fruit === "strawberry"){
+      let fruit = "durian";
+      var veg = "broccoli";
+      const legume = "red bean"; // if const is removed, will throw exception because should not rewrite const
+
+      console.log("entered if-statement")
+      console.log(fruit);
+      console.log(veg);
+      console.log(legume);
+    }
+
+    console.log("after if-statement")
+    console.log(fruit);
+    console.log(veg);
+    console.log(legume);
+
           
-    // Let's look at *hoisting* of variables
-    
-    
-    
-  
-  
-  
+    // Let's look at *hoisting* of variables, "hoists onto top"
+    //only works for funcitons and vars
+    console.log(x); // this prints undefined
+    var x = 5;
+    console.log(x);
+    //pre-processes var and function, and copy onto top with undefined values
+    //practically means only use var if you want to use this everywhere, and use it only after it's defined
+    //usually stick to using let
+
+
     // * Conditionals, functions and loops in c/java style and functional style.
     //   (to learn more about functions, check out http://ejohn.org/apps/learn/)
     
     // If statements:
-    
-    
+    let y = 5;
+    if (y === 5){console.log("equals 5");}
+    else if (y === 6){console.log("equals 6");}
+    else{console.log("else");}
     
     // Functions:
-    
+    function favoriteColor(){
+      return "blue";
+    }
   
+    console.log(favoriteColor());
+    
+    //anonymous functions:
+    let favoriteNumber = function(){
+      return 51;
+    }
 
+    console.log(favoriteNumber());
+
+    //function can be used interchageably with any other objects
+    function display(f){
+      console.log(f());
+    }
+
+    display(favoriteNumber);
     
-    
+    //arrow functions
+    let bestAnimal = () => {console.log("dog");}
+    bestAnimal();
+
+    let addNums = (num1, num2) => num1+num2 //can write like this if immediately returning
+    addNums(1,2);
+
     
     // * Brief foray into "destructuring"
     // Javascript can help to destructure objects and arrays during variable assignment

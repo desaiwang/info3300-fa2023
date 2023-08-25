@@ -1,4 +1,5 @@
 <html>
+
 <head>
   <meta charset="UTF-8">
   <title>INFO 3300 - Aug 23</title>
@@ -13,29 +14,37 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.2/highlight.min.js"></script>
 
 </head>
+
 <body>
   <div class="container larger">
     <h3>Notes for Wednesday, August 23</h3>
     <p>
-    	HW1 is now available on CMS. If you are on the waitlist you will not yet have CMS access -- you will receive an extension for any assignments before your enrollment date.
+      HW1 is now available on CMS. If you are on the waitlist you will not yet have CMS access -- you will receive an
+      extension for any assignments before your enrollment date.
     </p>
     <p>
-      You can access these files from the <a href="https://github.com/jeffrz/info3300-fa2023">course Github repository</a> Here is an <a href="http://rogerdudler.github.io/git-guide/">informal guide to git</a>.
+      You can access these files from the <a href="https://github.com/jeffrz/info3300-fa2023">course Github
+        repository</a> Here is an <a href="http://rogerdudler.github.io/git-guide/">informal guide to git</a>.
     </p>
     <p>
-      To develop efficiently, have a local web server running. Python has a simple, built-in server. Use <tt>python -m http.server</tt> for python 3; use <tt>python -m SimpleHTTPServer 8000</tt> for python 2 (execute "python" in cmd for version number). You probably have python 3.
+      To develop efficiently, have a local web server running. Python has a simple, built-in server. Use <tt>python -m
+        http.server</tt> for python 3; use <tt>python -m SimpleHTTPServer 8000</tt> for python 2 (execute "python" in
+      cmd for version number). You probably have python 3.
     </p>
     <p>
-      We will be working in Javascript for most of the term. It can act pretty oddly, especially in comparison to languages that strictly type objects. <br/>
+      We will be working in Javascript for most of the term. It can act pretty oddly, especially in comparison to
+      languages that strictly type objects. <br />
       What are some of the unusual aspects of this language? Open a console in your browser...
     </p>
     <p>
       Time permitting, let's also review <a href="https://www.json.org/json-en.html">Javascript Object Notation</a>.
     </p>
-    
-    <svg width=100 height=100> <rect id="rectangle" x=10 y=10 width=80 height=80 fill="steelblue" /> </svg>
-    
-    
+
+    <svg width=100 height=100>
+      <rect id="rectangle" x=10 y=10 width=80 height=80 fill="steelblue" />
+    </svg>
+
+
     <!-- This block will be automatically filled with syntax-highlighted code from the script below -->
     <h5>Code for today:</h5>
     <pre>
@@ -53,116 +62,123 @@
       // Let's explore some Javascript types!
       console.log("--- Checking out some types ---")
 
-      console.log(typeof(1)); //number
-      console.log(typeof(1.2)); //number
+      console.log(typeof (1)); //number
+      console.log(typeof (1.2)); //number
 
       //string
-      console.log(typeof("hello.")); 
-      console.log(typeof('hello.')); //single quotes also result in string
-      console.log(typeof(`hello.`));
-      console.log(typeof('japanese characters')) //also string, no sense of unicode
+      console.log(typeof ("hello."));
+      console.log(typeof ('hello.')); //single quotes also result in string
+      console.log(typeof (`hello.`));
+      console.log(typeof ('japanese characters')) //also string, no sense of unicode
 
       //object
-      console.log(typeof(Math)); //Math library looks like dict, every javascript object looks like and acts like a dict
-      console.log(typeof(new Object()));
-      
-      
+      console.log(typeof (Math)); //Math library looks like dict, every javascript object looks like and acts like a dict
+      console.log(typeof (new Object()));
+
+
       //function (a pseudo type, they are actually special objects)
-      console.log(typeof(console.log));
+      console.log(typeof (console.log));
 
       //null and undefined
-      console.log(typeof(null)); //prints object, but this is not true. null is its own type
-      console.log(typeof(undefined)); //undefined
+      console.log(typeof (null)); //prints object, but this is not true. null is its own type
+      console.log(typeof (undefined)); //undefined
 
-      
+
       // Learn a bit more about Objects
-      let list = [1,2,3] //assume we always define things this way
+      let list = [1, 2, 3] //assume we always define things this way
       console.log(list);
-      
-      let dict = {"a": 1, "b":2};
+
+      let dict = { "a": 1, "b": 2 };
 
       list["key"] = "this works"; //can make lists behave like dicts (every object can be made like dicts)
       console.log(list.key);
 
-      
+
       // So what can accept keys?
       console.log("--- So what works like a dict? ---");
-      let differentTypes = [3, "hello", new Object(), [1,2,3], function(x) {}, console];
+      let differentTypes = [3, "hello", new Object(), [1, 2, 3], function (x) { }, console];
       for (let item of differentTypes) {
-        console.log( item, typeof(item) );
+        console.log(item, typeof (item));
         item['test'] = "keyAdded";
-        console.log( item['test'] ); 
-      } 
-      
-      
+        console.log(item['test']);
+      }
+
+
       // Types can get a bit unexpected in JS
       console.log("--- Now exploring type coercion ---")
       console.log(3 + "Wang"); //"3Wang"
       console.log("1" + 2); //12
       console.log(4 + true); //5
       console.log("true" + false); //truefalse
-      console.log([1,2,3] + 2) // 1, 2, 32
-      
+      console.log([1, 2, 3] + 2) // 1, 2, 32
+      //only coerced into string, number, or boolean
+
       // Why does this matter?
       let color = "red";
       document.getElementById("rectangle").setAttribute("fill", color);
-      
+
       color = 2;
       document.getElementById("rectangle").setAttribute("fill", color); //forces it to be black
-      
-      
+
+
       // Comparison weirdness
       // console.log("--- Now trying some comparisons ---")
-      
-      
-      
-      
+      console.log((true + 1) == "2"); //evaluates to true, because type coercion works with comparisons
+      console.log(0 == '0'); //true
+      console.log([] == 0); //true
+      console.log([1] == 'true'); //true
+      console.log([0] == 'true'); // false
+      console.log([[[]]] == 0); //true
+
+      //instead should use ===, which turns off type coercion
+      console.log(0 === '0'); //false
+
+      console.log(6 + null); // 6
+      console.log(null == 0); //false (null doesn't equal anything, or get add to anything)
+      console.log(null == null); //true
+      console.log(null === null); //true
+
+      console.log(null == undefined); //false, null is not the same!
+      console.log(6 * "hello"); //NaN, which is a special number (not its own type!)
+      console.log(NaN == NaN); //false, because cannot evaluate a non-number with another non-number
+      console.log(isNaN(NaN)); //true
+      console.log([1, 2, 3] === [1, 2, 3]); //false, because they are two different objects
+      console.log([1, 2, 3] == [1, 2, 3]); //false
 
       // Shortcircuiting of logical statements
-      // console.log("--- Shortcircuiting ---");
+      console.log("--- Shortcircuiting ---");
+      true || console.log("logged-or") || false;
+      true && console.log("logged-and") && false; // this is the only one that printed, because true doesn't short circuit
+      false && console.log("logged-and-neg") && false;
 
 
-
+      let test = "script tags. how do they work?";
 
     </script>
 
 
     <script id="notes2">
-    
+
       // How do two script tags interact with each other?
-      let test = "script tags. how do they work?";
-      
-      
-      // * Let's talk JSON
-      
-      
 
-      // let obj = [{"name":"DDWA", "number":3300 },{"name": "Java", "number": 2110},{"name": "Python", "number": 1110}];
-      // console.log(obj);
-      
-
-
-      // This one won't parse because it breaks JSON specifications
-      // let badStr = '{"list": ["commas,", "single_quo\'tes", "double_quo"tes", "@sÃ§i|"], "nestedObject": {"undefined": undefined, "defined": 3.1415926535}, "Infinity": Infinity, "NaN": NaN, "bool": true}'
-      
-      
-      
-      
+      console.log(test); //this prints even though test is in another script tag!
+      //this is because script tags are combined, and put at top of file (shared namespaces)
 
     </script>
-    
-    
-    
-    
-    
+
+
+
+
+
 
     <!--- calls the highlight library to fill the <pre> tag with code --->
     <script>
-    document.getElementById("display1").innerText = document.getElementById("notes1").innerText;
-    document.getElementById("display2").innerText = document.getElementById("notes2").innerText;
-    hljs.initHighlightingOnLoad();
+      document.getElementById("display1").innerText = document.getElementById("notes1").innerText;
+      document.getElementById("display2").innerText = document.getElementById("notes2").innerText;
+      hljs.initHighlightingOnLoad();
     </script>
 
   </div>
 </body>
+
 </html>
