@@ -58,8 +58,16 @@
     // --- 1
     //  '../datasets/titanic.json'
     console.log( '---Top of file---' );
-                  
-    
+
+    //.. enters the folder above, don't do this for hw
+    //.then can take two functions, both su
+    d3.json('../datasets/titanic.json').then( (data) => {
+
+      //everything that relates to data must happen in this function
+      console.log(data);
+    }, (error) => {console.log(error)});
+
+
     
 
     // --- 2
@@ -67,29 +75,68 @@
 
     // 0. Find our SVG and get that ready
     //     We're going to use a new way of padding that makes axes easier
-    // const svg = d3.select('svg#scatterplot');
-    // const width = svg.attr('width');
-    // const height = svg.attr('height');
+    const svg = d3.select('svg#scatterplot');
+    const width = svg.attr('width');
+    const height = svg.attr('height');
     
+    const margins={top:10, right:10, bottom:50, left:50};
+    const chartWidth=width-margins.right-margins.left;
+    const chartHeight=height-margins.top-margins.bottom;
     
-    
+    console.log(chartWidth, chartHeight);
     
     // 1. Import some CSV data
-    //        .then( function(successfulResult), function(errorMessage) )
-    
-    
-            
-    // 2. Check for data issues
-    
-  
+    //.then( function(successfulResult), function(errorMessage) )
+    d3.csv('../datasets/gapminder.csv').then(
+      (data)=>{
+        data.forEach((d,i)=>{
+        d['life'] = Number(d['Life Expectancy']);
+        d['gdp'] = Number(d['GDP/Person (PPP$)']);
+        d['pop'] = Number(d['Total Population'].replace(/,/g, ''));
 
-    // 3. Let's build some scales
+        data = data.filter((d) => {return d['gdp'] != 0 &&
+                                          d['life'] != 0 &&
+                                          d['pop'] !=0;} );
+        })
+        
+        console.log(data);
+
+
+        // 2. Check for data issues
+      
     
-    
-    
+
+        // 3. Let's build some scales
+        
+        const gdpExtent = d3.extent(data, d=>d['gdp']);
+        const gdpScale = d3.scaleLinear().domain(gdpExtent).extent([0,10]);
+
+        const lifeExtent = d3.extent(data, d=>d['life'])
+        const lifeScale = d3.scaleLinear().domain(lifeExtent).extent([chartHeight, 0]);
+
+        const popExtent = d3.extent(data, d=>d['pop'])
+        const popScale = d3.scaleLinear().domain(popExtent).extent([5,10]);
+        
+        let scatter = svg.appen("g").attr("transfomr", `translate(${margins.left},${margins.top})`)
+        data.forEach((d,i) => {
+
+          svg.append('circle')
+                 .attr("cx", gdpScale(d['gdp']))
+                 .attr("cy", lifeScale(d['life']))
+                 .attr("r", popScale(d['pop']))
+                 .attr("fill", "steelblue")
+                 .attr("index", i)
+
+        })
     
     // 4. Start plotting circles and see what happens
     
+      }
+    )
+    
+    
+            
+
     
     
     
