@@ -118,7 +118,7 @@
             bottomAxisG.transition().call(bottomAxis);
 
             //need to use complex data join to animate
-            chartArea.selectAll("rect.bar").data(data)
+            chartArea.selectAll("rect.bar").data(data, d => d['genre'])
               .join(
                 enter => {
                   enter.append("rect")
@@ -129,16 +129,17 @@
                     .attr("width", genreScale.bandwidth())
                     .attr("height", d => (percentScale(0) - percentScale(d.percentpass)))
                     .attr("opacity", 0)
-                    .transition(10)
+                    .transition()
                     .call(enter => enter.transition().attr('opacity', 1));
                 },
                 update => {
-                  update.transition(10)
+                  update.transition()
                     .attr("fill", "steelblue")
                     .attr("x", d => genreScale(d.genre))
                     .attr("y", d => percentScale(d.percentpass))
                     .attr("width", genreScale.bandwidth())
                     .attr("height", d => (percentScale(0) - percentScale(d.percentpass)))
+                    .call(enter => enter.transition().attr('opacity', 1));
                 },
                 exit => {
                   exit.call(exit => exit.transition().attr('opacity', 0).remove())
